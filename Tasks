@@ -1,2 +1,23 @@
-CI/CD
-      
+1. CI/CD -[Continous Integration/Continous Delivery/Continous Deployment]
+   Continuous integration (CI) automatically builds, tests, and integrates code changes within a shared repository. 
+   Continuous delivery (CD) automatically delivers code changes to production-ready environments for approval or
+   Continuous deployment (CD) automatically deploys code changes to customers directly.
+            
+2. AWS - Amazon Web Service  
+   AWS is Cloud platform designed to allow developers to quickly and securely host your applications – it may be an existing application or a new SaaS-based application.    
+   
+3. Git 
+   It is populor VERSION CONTROL SYSTEM where we can track our project history in which we can see who has made what changes when and why.   
+     
+4. Jenkins
+   An open source software that helps developers to build, test and deploy automatically.
+
+5. Ansible
+   Ansible is a configuration management system.It's used for automation of configuration and OS setup
+   
+6. Docker
+   Docker is an open platform for creating, distributing, and running programmes.
+   
+7. Kubernates
+   Applications running in containers are managed by Kubernates to run on a cluster of hosts.
+   
