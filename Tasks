@@ -21,3 +21,20 @@
 7. Kubernates
    Applications running in containers are managed by Kubernates to run on a cluster of hosts.
    
+   --------------------------------------------------------------------------------------------------------------------------
+   October 8
+
+   *aws account creation  
+   *creating instances:
+           EC2 Dashboard ->Launch an instance ->Enter name ->Select Red hat free tier->Create a new key pair name->RSA ->.ppm -> LAUNCH INSTANCE.
+   
+   ---------------------------------------------------------------------------------------------------------------------------------------------
+   
+   October 15
+   
+   Executing commands in MobaXterm
+   
+   * copy& paste the downloaded pem file on Desktop.
+   * goto Connect to instance in aws
+   * In SSH client - copy the 3rd and example line in MobaXterm 
+           
