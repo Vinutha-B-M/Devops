@@ -1,0 +1,89 @@
+[ec2-user@ip-172-31-0-229 ~]$ whoami
+ec2-user
+[ec2-user@ip-172-31-0-229 ~]$ ls
+[ec2-user@ip-172-31-0-229 ~]$ cd
+[ec2-user@ip-172-31-0-229 ~]$ pwd
+/home/ec2-user
+[ec2-user@ip-172-31-0-229 ~]$ ls
+[ec2-user@ip-172-31-0-229 ~]$ whoami
+ec2-user
+[ec2-user@ip-172-31-0-229 ~]$ pwd
+/home/ec2-user
+[ec2-user@ip-172-31-0-229 ~]$ mkdir abc
+[ec2-user@ip-172-31-0-229 ~]$ ls
+abc
+[ec2-user@ip-172-31-0-229 ~]$ rmdir abc
+[ec2-user@ip-172-31-0-229 ~]$ ls
+[ec2-user@ip-172-31-0-229 ~]$ mkdir abc
+[ec2-user@ip-172-31-0-229 ~]$ ls
+abc
+[ec2-user@ip-172-31-0-229 ~]$ touch test.txt
+[ec2-user@ip-172-31-0-229 ~]$ ls
+abc  test.txt
+[ec2-user@ip-172-31-0-229 ~]$ touch test1.jpg
+[ec2-user@ip-172-31-0-229 ~]$ touch test2.mp4
+[ec2-user@ip-172-31-0-229 ~]$ ls
+abc  test1.jpg  test2.mp4  test.txt
+[ec2-user@ip-172-31-0-229 ~]$ cat > test.txt
+hi
+i am vinutha
+good morning
+[ec2-user@ip-172-31-0-229 ~]$ cat test.txt
+hi
+i am vinutha
+good morning
+[ec2-user@ip-172-31-0-229 ~]$ cat >> test.txt
+i am learning devops
+[ec2-user@ip-172-31-0-229 ~]$ cat test.txt
+hi
+i am vinutha
+good morning
+i am learning devops
+[ec2-user@ip-172-31-0-229 ~]$ grep i am test.txt
+grep: am: No such file or directory
+test.txt:hi
+test.txt:i am vinutha
+test.txt:good morning
+test.txt:i am learning devops
+[ec2-user@ip-172-31-0-229 ~]$ grep am test.txt
+i am vinutha
+i am learning devops
+[ec2-user@ip-172-31-0-229 ~]$ wc test.txt
+ 4 10 51 test.txt
+[ec2-user@ip-172-31-0-229 ~]$ mv test.txt mytest.txt
+[ec2-user@ip-172-31-0-229 ~]$ ls
+abc  mytest.txt  test1.jpg  test2.mp4
+[ec2-user@ip-172-31-0-229 ~]$ cp mytest.txt abc
+[ec2-user@ip-172-31-0-229 ~]$ ls
+abc  mytest.txt  test1.jpg  test2.mp4
+[ec2-user@ip-172-31-0-229 ~]$ history
+    1  whoami
+    2  ls
+    3  cd
+    4  pwd
+    5  ls
+    6  whoami
+    7  pwd
+    8  mkdir abc
+    9  ls
+   10  rmdir abc
+   11  ls
+   12  mkdir abc
+   13  ls
+   14  touch test.txt
+   15  ls
+   16  touch test1.jpg
+   17  touch test2.mp4
+   18  ls
+   19  cat > test.txt
+   20  cat test.txt
+   21  cat >> test.txt
+   22  cat test.txt
+   23  grep i am test.txt
+   24  grep am test.txt
+   25  wc test.txt
+   26  mv test.txt mytest.txt
+   27  ls
+   28  cp mytest.txt abc
+   29  ls
+   30  history
