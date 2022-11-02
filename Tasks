@@ -1,7 +1,7 @@
 1. CI/CD -[Continous Integration/Continous Delivery/Continous Deployment]
    Continuous integration (CI) automatically builds, tests, and integrates code changes within a shared repository. 
    Continuous delivery (CD) automatically delivers code changes to production-ready environments for approval or
-   Continuous deployment (CD) automatically deploys code changes to customers directly.
+   Continuous deployment (CD) automatically deploys code changes to customers directly
             
 2. AWS - Amazon Web Service  
    AWS is Cloud platform designed to allow developers to quickly and securely host your applications – it may be an existing application or a new SaaS-based application.    
