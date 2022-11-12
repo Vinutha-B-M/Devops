@@ -37,7 +37,23 @@
    * copy& paste the downloaded pem file on Desktop.
    * goto Connect to instance in aws
    * In SSH client - copy the 3rd and example line in MobaXterm 
+   
+   * Git, Git bash/GUI installation, GithubDesktop installation in local system (including git installation in linux ec2 machine)
+   * Difference between git and svn
    -------------------------------------------------------------------------------------------
    https://www.guru99.com/the-vi-editor.html
+   
+   
+   -------------------------------------------------------------------------------------------------------------------------------------------------
+   
+   
+   October 
+   
+  * git pull vs git push
+  * git fork vs git clone 
+  * git rebase vs git merge
+  * git fetch vs git pull
+  * git stash vs git squash
+  * git status and git diff
 
            
