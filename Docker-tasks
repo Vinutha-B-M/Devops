@@ -1,0 +1,99 @@
+[ec2-user@ip-172-31-14-94 ~]$ docker pull python
+Using default tag: latest
+latest: Pulling from library/python
+1e4aec178e08: Pull complete
+6c1024729fee: Pull complete
+c3aa11fbc85a: Pull complete
+aa54add66b3a: Pull complete
+9e3a60c2bce7: Pull complete
+3b2123ce9d0d: Pull complete
+05df7720fcb8: Pull complete
+972ab8743e38: Pull complete
+c6510153b089: Pull complete
+Digest: sha256:86b2fe5e3cf5b979f4b21849ad340762f4a15129583c8134c6c2dc4a880942e6
+Status: Downloaded newer image for python:latest
+docker.io/library/python:latest
+============================================
+
+[ec2-user@ip-172-31-14-94 ~]$ docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: vinuthabm
+Password:
+WARNING! Your password will be stored unencrypted in /home/ec2-user/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+===========================================
+
+[ec2-user@ip-172-31-14-94 ~]$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+python        latest    a41622906035   30 hours ago    925MB
+ubuntu        latest    58db3edaf2be   4 weeks ago     77.8MB
+hello-world   latest    feb5d9fea6a5   17 months ago   13.3kB
+hello-world   linux     feb5d9fea6a5   17 months ago   13.3kB
+[ec2-user@ip-172-31-14-94 ~]$ docker rmi python
+Untagged: python:latest
+Untagged: python@sha256:86b2fe5e3cf5b979f4b21849ad340762f4a15129583c8134c6c2dc4a880942e6
+Deleted: sha256:a416229060357ae18953015f42a134fb3199f736a649abb664f81e3437f83518
+Deleted: sha256:ad0aaa3cea2f48971b0a5ad2ebf6f7cb3b84c4837b2202420acbf0aea448ced6
+Deleted: sha256:cf0c9aff5d6ed2d7bfcaffe5fc416e34a4981f77c6be1e0277ca4bbb14d92238
+Deleted: sha256:b60520bcb85e60c38068bc182cc50a72d892f4488d18e54e7d15701a4724ca0e
+Deleted: sha256:1206fedb18cbf5670a8ee6e0e6bea74643a2363d2c740f85f4b3961af0684bc9
+Deleted: sha256:feef80ae1b9a4a49dfa5e41181caf683ab3dae44dc8b5c2fdafc4a4fb364d242
+Deleted: sha256:35a162afcf7f923ad76bbcc532ebc3500d4c2fe2c045c2fc88e741a58197bf09
+Deleted: sha256:9259e53dcd6f94d6d38111d2385de52014e38e4bfce49f5639fb3d6f9a58b430
+Deleted: sha256:d78294ee5a46abcc2a8eb9bb1edb333604e57bd7cab95c8b9821038c6d506b1c
+Deleted: sha256:8e396a1aad506affc6fa1b7c7b8ee75b54b78019e0a945e6ac52e3dc407e0766
+[ec2-user@ip-172-31-14-94 ~]$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+ubuntu        latest    58db3edaf2be   4 weeks ago     77.8MB
+hello-world   latest    feb5d9fea6a5   17 months ago   13.3kB
+hello-world   linux     feb5d9fea6a5   17 months ago   13.3kB
+====================================================================================================
+
+[ec2-user@ip-172-31-14-94 ~]$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+postgres      latest    680aba37fd0f   2 weeks ago     379MB
+nginx         latest    3f8a00f137a0   2 weeks ago     142MB
+ubuntu        latest    58db3edaf2be   4 weeks ago     77.8MB
+hello-world   latest    feb5d9fea6a5   17 months ago   13.3kB
+hello-world   linux     feb5d9fea6a5   17 months ago   13.3kB
+[ec2-user@ip-172-31-14-94 ~]$
+[ec2-user@ip-172-31-14-94 ~]$
+[ec2-user@ip-172-31-14-94 ~]$ docker run ubuntu
+[ec2-user@ip-172-31-14-94 ~]$ docker run -it -d nginx
+59d8c6a48e0061d5e1b0c02afbf94f49e523b2db76959a630e2591701962d361
+
+
+[ec2-user@ip-172-31-14-94 ~]$ docker image prune -a
+WARNING! This will remove all images without at least one container associated to them.
+Are you sure you want to continue? [y/N] y
+Deleted Images:
+untagged: postgres:latest
+untagged: postgres@sha256:901df890146ec46a5cab7a33f4ac84e81bac2fe92b2c9a14fd649502c4adf954
+deleted: sha256:680aba37fd0f0766e7568a00daf18cfd4916c2689def0f17962a3e1508c22856
+deleted: sha256:9a00e97279b766fc13ad40d3ef80c1b2fb1805f08ceb57a0248e67cf9d481e06
+deleted: sha256:5a4ee6c2f6777b8a83fc74a5dba7af04f832610c4858a0e139704f43085a5464
+deleted: sha256:315cff3b66b840eee09a0498fbc030c613336b34a4101e7e8869c24ab7110fcf
+deleted: sha256:842e4c2fa3c330d578eb71d1c5b7b43c70475c9866993197ff927ba0d5c1c585
+deleted: sha256:d4be3475bcb7c3ff1d2be36dded7fac194f0660a1f366cdacd3132ab7843c2b8
+deleted: sha256:c34d2bb5859982dc4bfacda4a6e3495ab332f20feadd14f787d9a4554fe4497e
+deleted: sha256:72d18d5f5ae5fe231f601fa82ff6f09faec131fa1d38c2502f60a53746ec5162
+deleted: sha256:85bcba56e3e4bf1c4c76a15916982b100f11a17fd2f21454be9bba659ff9a158
+deleted: sha256:887d8188c9912617a44f5b279d480047e77bbcb2149179daa77d02256cda1b40
+deleted: sha256:ea7340bfffbafe371e32387ad017769c55d9e48094d7595a5a34fc1abdaf1dba
+deleted: sha256:f6558494ff260d4d465e05fa6153a8e45d11e4ada009a738f4600bdcf3b3ea9e
+deleted: sha256:a3ce72647981e6eb91b1748b067945a5a83e7055acc7f53952ef3b98671f7403
+untagged: hello-world:latest
+
+Total reclaimed space: 298.2MB
+[ec2-user@ip-172-31-14-94 ~]$ docker images
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+nginx         latest    3f8a00f137a0   2 weeks ago     142MB
+ubuntu        latest    58db3edaf2be   4 weeks ago     77.8MB
+hello-world   linux     feb5d9fea6a5   17 months ago   13.3kB
+========================================================================================
+
+
+
