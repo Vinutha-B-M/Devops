@@ -1,23 +1,18 @@
-stage('Build') {
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
             steps {
-                sh 'mvn -s settings.xml -DskipTests install'
-            }
-            post {
-                success {
-                    echo "Now Archiving."
-                    archiveArtifacts artifacts: '**/*.war'
-                }
+                // your build steps here
             }
         }
-
-stage('Test') {
-           steps {
-            sh 'mvn test'
-           }
+    }
+    post {
+        always {
+            // add a batch command to commit changes and push to GitHub
+            bat 'git add .'
+            bat 'git commit -m "pipeline build successful"'
+            bat 'git push origin master'
         }
-        
-        stage('Checkstyle Analysis'){
-            steps {
-                sh 'mvn -s settings.xml checkstyle:checkstyle'
-            }
-        }
+    }
+}
