@@ -1,0 +1,616 @@
+PS C:\WINDOWS\system32> kubectl get namespaces
+NAME                   STATUS   AGE
+default                Active   13m
+kube-node-lease        Active   14m
+kube-public            Active   14m
+kube-system            Active   14m
+kubernetes-dashboard   Active   11m
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po --all-namespaces
+NAMESPACE              NAME                                        READY   STATUS    RESTARTS   AGE
+kube-system            coredns-787d4945fb-ghlrm                    1/1     Running   0          13m
+kube-system            etcd-minikube                               1/1     Running   0          14m
+kube-system            kube-apiserver-minikube                     1/1     Running   0          14m
+kube-system            kube-controller-manager-minikube            1/1     Running   0          14m
+kube-system            kube-proxy-sbb2v                            1/1     Running   0          13m
+kube-system            kube-scheduler-minikube                     1/1     Running   0          14m
+kube-system            storage-provisioner                         1/1     Running   0          14m
+kubernetes-dashboard   dashboard-metrics-scraper-5c6664855-69q7c   1/1     Running   0          11m
+kubernetes-dashboard   kubernetes-dashboard-55c4cbbc7c-kpw6p       1/1     Running   0          11m
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> ^C
+PS C:\WINDOWS\system32> kubectl get po -n coredns-787d4945fb-ghlrm
+No resources found in coredns-787d4945fb-ghlrm namespace.
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po -n etcd-minikube
+No resources found in etcd-minikube namespace.
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get svc -n etcd-minikube
+No resources found in etcd-minikube namespace.
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get pods -o=jsonpath="{.items[*]['metadata.name', 'metadata.namespace']}"
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl run nginx --image=nginx --restart=Never
+pod/nginx created
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po
+NAME    READY   STATUS              RESTARTS   AGE
+nginx   0/1     ContainerCreating   0          13s
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl run nginx --image=nginx --restart=Never --dry-run -o yaml > nginx-pod.yaml
+W0305 08:24:41.407562   11156 helpers.go:663] --dry-run is deprecated and can be replaced with --dry-run=client.
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl run nginx --image=nginx --restart=Never --dry-run=client -o yaml > nginx-pod.yaml
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> cat nginx-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl create -f nginx-pod.yaml
+Error from server (AlreadyExists): error when creating "nginx-pod.yaml": pods "nginx" already exists
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl delete po nginx
+pod "nginx" deleted
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po
+No resources found in default namespace.
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl create -f nginx-pod.yaml
+pod/nginx created
+PS C:\WINDOWS\system32> kubectl get po
+NAME    READY   STATUS              RESTARTS   AGE
+nginx   0/1     ContainerCreating   0          3s
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl describe pod nginx
+Name:             nginx
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Sun, 05 Mar 2023 08:26:42 +0530
+Labels:           run=nginx
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.6
+IPs:
+  IP:  10.244.0.6
+Containers:
+  nginx:
+    Container ID:   docker://63a6d988987cc41d4c5cc393a60557850bf503b09631f644cdc8805ecaaedc5e
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:aa0afebbb3cfa473099a62c4b32e9b3fb73ed23f2a75a65ce1d4b4f55a5c2ef2
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 05 Mar 2023 08:26:47 +0530
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-vcz6f (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  kube-api-access-vcz6f:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  22s   default-scheduler  Successfully assigned default/nginx to minikube
+  Normal  Pulling    21s   kubelet            Pulling image "nginx"
+  Normal  Pulled     17s   kubelet            Successfully pulled image "nginx" in 3.312316012s (3.312347201s including waiting)
+  Normal  Created    17s   kubelet            Created container nginx
+  Normal  Started    17s   kubelet            Started container nginx
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get namespaces
+NAME                   STATUS   AGE
+default                Active   19m
+kube-node-lease        Active   19m
+kube-public            Active   19m
+kube-system            Active   19m
+kubernetes-dashboard   Active   16m
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po --all-namespaces
+NAMESPACE              NAME                                        READY   STATUS    RESTARTS   AGE
+default                nginx                                       1/1     Running   0          71s
+kube-system            coredns-787d4945fb-ghlrm                    1/1     Running   0          19m
+kube-system            etcd-minikube                               1/1     Running   0          19m
+kube-system            kube-apiserver-minikube                     1/1     Running   0          19m
+kube-system            kube-controller-manager-minikube            1/1     Running   0          19m
+kube-system            kube-proxy-sbb2v                            1/1     Running   0          19m
+kube-system            kube-scheduler-minikube                     1/1     Running   0          19m
+kube-system            storage-provisioner                         1/1     Running   0          19m
+kubernetes-dashboard   dashboard-metrics-scraper-5c6664855-69q7c   1/1     Running   0          17m
+kubernetes-dashboard   kubernetes-dashboard-55c4cbbc7c-kpw6p       1/1     Running   0          17m
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po -n nginx
+No resources found in nginx namespace.
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po -n default
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          107s
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get svc -n default
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   20m
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get pods -o=jsonpath="{.items[*]['metadata.name', 'metadata.namespace']}"
+>>
+nginx default
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po nginx -o yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2023-03-05T02:56:42Z"
+  labels:
+    run: nginx
+  name: nginx
+  namespace: default
+  resourceVersion: "1362"
+  uid: d6f09755-1bbd-4b09-8c28-feef7fdccfde
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: Always
+    name: nginx
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-vcz6f
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: minikube
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Never
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-vcz6f
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2023-03-05T02:56:42Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2023-03-05T02:56:48Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2023-03-05T02:56:48Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2023-03-05T02:56:42Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://63a6d988987cc41d4c5cc393a60557850bf503b09631f644cdc8805ecaaedc5e
+    image: nginx:latest
+    imageID: docker-pullable://nginx@sha256:aa0afebbb3cfa473099a62c4b32e9b3fb73ed23f2a75a65ce1d4b4f55a5c2ef2
+    lastState: {}
+    name: nginx
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2023-03-05T02:56:47Z"
+  hostIP: 192.168.49.2
+  phase: Running
+  podIP: 10.244.0.6
+  podIPs:
+  - ip: 10.244.0.6
+  qosClass: BestEffort
+  startTime: "2023-03-05T02:56:42Z"
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po nginx -o yaml --export
+error: unknown flag: --export
+See 'kubectl get --help' for usage.
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl delete po nginx --grace-period=0 --force
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+pod "nginx" force deleted
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl run nginx --image=nginx:1.17.4 --restart=Never --port=80
+pod/nginx created
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po
+NAME    READY   STATUS              RESTARTS   AGE
+nginx   0/1     ContainerCreating   0          9s
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl set image pod/nginx nginx=nginx:1.15-alpine
+pod/nginx image updated
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl describe po nginx
+Name:             nginx
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Sun, 05 Mar 2023 08:32:21 +0530
+Labels:           run=nginx
+Annotations:      <none>
+Status:           Pending
+IP:
+IPs:              <none>
+Containers:
+  nginx:
+    Container ID:
+    Image:          nginx:1.15-alpine
+    Image ID:
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       ContainerCreating
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-dz42k (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             False
+  ContainersReady   False
+  PodScheduled      True
+Volumes:
+  kube-api-access-dz42k:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  44s   default-scheduler  Successfully assigned default/nginx to minikube
+  Normal  Pulling    43s   kubelet            Pulling image "nginx:1.17.4"
+  Normal  Pulled     9s    kubelet            Successfully pulled image "nginx:1.17.4" in 34.176054167s (34.176089134s including waiting)
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubeclt edit po nginx
+kubeclt : The term 'kubeclt' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct
+and try again.
+At line:1 char:1
++ kubeclt edit po nginx
++ ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (kubeclt:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\WINDOWS\system32> kubectl edit po nginx
+pod/nginx edited
+PS C:\WINDOWS\system32> kubectl describe po nginx
+Name:             nginx
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Sun, 05 Mar 2023 08:32:21 +0530
+Labels:           run=nginx
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.7
+IPs:
+  IP:  10.244.0.7
+Containers:
+  nginx:
+    Container ID:   docker://63e62b589355842ef1f9209bf612d15f79e5a7913c833f4c39ef00e7c7bba0f9
+    Image:          nginx:1.17-alpine
+    Image ID:       docker-pullable://nginx@sha256:57a226fb6ab6823027c0704a9346a890ffb0cacde06bc19bbc234c8720673555
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sun, 05 Mar 2023 08:33:20 +0530
+    Last State:     Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Sun, 05 Mar 2023 08:33:06 +0530
+      Finished:     Sun, 05 Mar 2023 08:33:06 +0530
+    Ready:          True
+    Restart Count:  1
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-dz42k (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  kube-api-access-dz42k:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age                 From               Message
+  ----    ------     ----                ----               -------
+  Normal  Scheduled  2m31s               default-scheduler  Successfully assigned default/nginx to minikube
+  Normal  Pulling    2m30s               kubelet            Pulling image "nginx:1.17.4"
+  Normal  Pulled     116s                kubelet            Successfully pulled image "nginx:1.17.4" in 34.176054167s (34.176089134s including waiting)
+  Normal  Pulling    105s                kubelet            Pulling image "nginx:1.15-alpine"
+  Normal  Pulled     94s                 kubelet            Successfully pulled image "nginx:1.15-alpine" in 11.513696647s (11.513733588s including waiting)
+  Normal  Created    92s (x2 over 107s)  kubelet            Created container nginx
+  Normal  Started    92s (x2 over 106s)  kubelet            Started container nginx
+  Normal  Killing    10s (x2 over 106s)  kubelet            Container nginx definition changed, will be restarted
+  Normal  Pulling    9s                  kubelet            Pulling image "nginx:1.17-alpine"
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po nginx -w
+NAME    READY   STATUS    RESTARTS      AGE
+nginx   1/1     Running   2 (49s ago)   3m11s
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po nginx -o jsonpath='{.spec.containers[].image}{"\n"}
+>>
+>> ^C
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po nginx -o jsonpath='{.spec.containers[].image}{"\n"}'
+error: error parsing jsonpath {.spec.containers[].image}{\n}, unrecognized character in action: U+005C '\'
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po nginx -o jsonpath='{.spec.containers[].image}'
+nginx:1.17-alpine
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl run nginx --image=nginx --restart=Never
+Error from server (AlreadyExists): pods "nginx" already exists
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl exec -it nginx /bin/sh
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+/ #
+/ #
+/ #
+/ # ls
+bin    dev    etc    home   lib    media  mnt    opt    proc   root   run    sbin   srv    sys    tmp    usr    var
+/ # pwd
+/
+/ #
+/ #
+/ # exit
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po nginx -o wide
+NAME    READY   STATUS    RESTARTS        AGE     IP           NODE       NOMINATED NODE   READINESS GATES
+nginx   1/1     Running   2 (3m21s ago)   5m43s   10.244.0.7   minikube   <none>           <none>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl run busybox --image=busybox --restart=Never -- ls
+>>
+pod/busybox created
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl logs busybox
+bin
+dev
+etc
+home
+lib
+lib64
+proc
+root
+sys
+tmp
+usr
+var
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl logs busybox -p
+Error from server (BadRequest): previous terminated container "busybox" in pod "busybox" not found
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl run busybox --image=busybox --restart=Never -- ls
+>>
+Error from server (AlreadyExists): pods "busybox" already exists
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl run busybox --image=busybox --restart=Never -- /bin/sh -c "sleep 3600"
+Error from server (AlreadyExists): pods "busybox" already exists
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl delete po busybox
+pod "busybox" deleted
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl run busybox --image=busybox --restart=Never -- /bin/sh -c "sleep 3600"
+pod/busybox created
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po nginx -o wide
+NAME    READY   STATUS    RESTARTS        AGE     IP           NODE       NOMINATED NODE   READINESS GATES
+nginx   1/1     Running   2 (7m29s ago)   9m51s   10.244.0.7   minikube   <none>           <none>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl exec -it busybox -- wget -o- 10.244.0.7
+Connecting to 10.244.0.7 (10.244.0.7:80)
+saving to 'index.html'
+index.html           100% |*******************************************************************************************************************************************************************|   612  0:00:00 ETA
+'index.html' saved
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl run busybox --image=nginx --restart=Never -it -- echo "How are you"
+>>
+Error from server (AlreadyExists): pods "busybox" already exists
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl delete po busybox
+pod "busybox" deleted
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl run busybox --image=nginx --restart=Never -it -- echo "How are you"
+>>
+Error from server (AlreadyExists): object is being deleted: pods "busybox" already exists
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po
+NAME    READY   STATUS    RESTARTS        AGE
+nginx   1/1     Running   2 (9m12s ago)   11m
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get svc
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   36m
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get svc -n default
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   36m
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get namespace
+NAME                   STATUS   AGE
+default                Active   37m
+kube-node-lease        Active   37m
+kube-public            Active   37m
+kube-system            Active   37m
+kubernetes-dashboard   Active   34m
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get pods --sort-by=.metadata.name
+NAME    READY   STATUS    RESTARTS      AGE
+nginx   1/1     Running   2 (10m ago)   13m
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get pods--sort-by=.metadata.creationTimestamp
+error: the server doesn't have a resource type "pods--sort-by="
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get po busybox
+Error from server (NotFound): pods "busybox" not found
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl get pods --sort-by=.metadata.name
+NAME    READY   STATUS    RESTARTS      AGE
+nginx   1/1     Running   2 (11m ago)   13m
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32> kubectl run busybox --image=nginx --restart=Never -it -- echo "How are you"
+>>
+How are you
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
+PS C:\WINDOWS\system32>
