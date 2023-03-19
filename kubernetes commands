@@ -1018,6 +1018,21 @@ busybox   0/1     Completed   0          5m7s
 
 
 
+PS C:\Windows\system32> kubectl run busybox-1 --image=busybox --restart=Never -- /bin/sh -c "sleep 60"
+pod/busybox-1 created
+PS C:\Windows\system32> 
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl get pod busybox-1 -w
+NAME        READY   STATUS    RESTARTS   AGE
+busybox-1   1/1     Running   0          40s
+busybox-1   0/1     Completed   0          64s
+busybox-1   0/1     Completed   0          66s
+
+
+
+
 
 
 
