@@ -1120,32 +1120,37 @@ nginx   1/1     Running   2 (50m ago)   54m
 
 
 
+PS C:\Windows\system32> kubectl get po -o=custom-columns="POD_NAME:.metadata.name, POD_STATUS:.status.containerStatuses[].state"
+POD_NAME     POD_STATUS
+busybox-1   map[running:map[startedAt:2023-03-19T01:32:41Z]]
+nginx       map[running:map[startedAt:2023-03-19T00:51:35Z]]
+nginx-1     map[running:map[startedAt:2023-03-19T01:03:15Z]]
+nginx-2     map[running:map[startedAt:2023-03-19T01:41:20Z]]
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl get pods --sort-by=.metadata.name
+NAME        READY   STATUS    RESTARTS      AGE
+busybox-1   1/1     Running   0             16m
+nginx       1/1     Running   2 (58m ago)   62m
+nginx-1     1/1     Running   0             46m
+nginx-2     1/1     Running   0             8m17s
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+PS C:\Windows\system32> kubectl get pods --sort-by=.metadata.creationTimestamp
+NAME        READY   STATUS    RESTARTS      AGE
+nginx       1/1     Running   2 (60m ago)   64m
+nginx-1     1/1     Running   0             48m
+busybox-1   1/1     Running   0             18m
+nginx-2     1/1     Running   0             10m
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl get po -o=custom-columns="POD_NAME:.metadata.name, POD_STATUS:.status.containerStatuses[].state" --sort-by=.metadata.creationTimestamp
+POD_NAME     POD_STATUS
+nginx       map[running:map[startedAt:2023-03-19T00:51:35Z]]
+nginx-1     map[running:map[startedAt:2023-03-19T01:03:15Z]]
+busybox-1   map[running:map[startedAt:2023-03-19T01:32:41Z]]
+nginx-2     map[running:map[startedAt:2023-03-19T01:41:20Z]]
 
