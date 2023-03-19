@@ -1207,4 +1207,22 @@ PS C:\Users\User> kubectl logs busybox1 -c busybox33
 this is third container
 
 
-
+PS C:\Users\User> kubectl exec busybox1 -c busybox33 -- ls
+bin
+dev
+etc
+home
+lib
+lib64
+proc
+root
+sys
+tmp
+usr
+var
+PS C:\Users\User>
+PS C:\Users\User>
+PS C:\Users\User>
+PS C:\Users\User>
+PS C:\Users\User> kubectl top pod busybox1 --containers
+error: Metrics API not available
