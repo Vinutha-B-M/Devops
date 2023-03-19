@@ -1065,6 +1065,75 @@ pod "busybox" deleted
 
 
 
+PS C:\Windows\system32> kubectl run nginx-2 --image=nginx --restart=Never --port=80
+pod/nginx-2 created
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl get po nginx --v=7
+I0319 07:11:34.841541   11460 loader.go:374] Config loaded from file:  C:\Users\User\.kube\config
+I0319 07:11:34.853061   11460 round_trippers.go:463] GET https://kubernetes.docker.internal:6443/api/v1/namespaces/default/pods/nginx
+I0319 07:11:34.854060   11460 round_trippers.go:469] Request Headers:
+I0319 07:11:34.854060   11460 round_trippers.go:473]     Accept: application/json;as=Table;v=v1;g=meta.k8s.io,application/json;as=Table;v=v1beta1;g=meta.k8s.io,application/json
+I0319 07:11:34.854060   11460 round_trippers.go:473]     User-Agent: kubectl.exe/v1.25.4 (windows/amd64) kubernetes/872a965
+I0319 07:11:34.872508   11460 round_trippers.go:574] Response Status: 200 OK in 18 milliseconds
+NAME    READY   STATUS    RESTARTS      AGE
+nginx   1/1     Running   2 (50m ago)   54m
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl get po nginx --v=8
+I0319 07:11:48.286123    7176 loader.go:374] Config loaded from file:  C:\Users\User\.kube\config
+I0319 07:11:48.297126    7176 round_trippers.go:463] GET https://kubernetes.docker.internal:6443/api/v1/namespaces/default/pods/nginx
+I0319 07:11:48.297126    7176 round_trippers.go:469] Request Headers:
+I0319 07:11:48.297126    7176 round_trippers.go:473]     Accept: application/json;as=Table;v=v1;g=meta.k8s.io,application/json;as=Table;v=v1beta1;g=meta.k8s.io,application/json
+I0319 07:11:48.297126    7176 round_trippers.go:473]     User-Agent: kubectl.exe/v1.25.4 (windows/amd64) kubernetes/872a965
+I0319 07:11:48.313167    7176 round_trippers.go:574] Response Status: 200 OK in 16 milliseconds
+I0319 07:11:48.313167    7176 round_trippers.go:577] Response Headers:
+I0319 07:11:48.313167    7176 round_trippers.go:580]     X-Kubernetes-Pf-Flowschema-Uid: 63227214-a15a-482b-a0e2-7ed1a48af44f
+I0319 07:11:48.313167    7176 round_trippers.go:580]     X-Kubernetes-Pf-Prioritylevel-Uid: 404f2442-24cf-4890-8f0f-cfd6d6d14e3b
+I0319 07:11:48.313167    7176 round_trippers.go:580]     Date: Sun, 19 Mar 2023 01:41:48 GMT
+I0319 07:11:48.313167    7176 round_trippers.go:580]     Audit-Id: 564c0afb-8471-4969-9064-0f7b616c71fc
+I0319 07:11:48.313167    7176 round_trippers.go:580]     Cache-Control: no-cache, private
+I0319 07:11:48.313167    7176 round_trippers.go:580]     Content-Type: application/json
+I0319 07:11:48.314168    7176 request.go:1154] Response Body: {"kind":"Table","apiVersion":"meta.k8s.io/v1","metadata":{"resourceVersion":"2901"},"columnDefinitions":[{"name":"Name","type":"string","format":"name","description":"Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names","priority":0},{"name":"Ready","type":"string","format":"","description":"The aggregate readiness state of this pod for accepting traffic.","priority":0},{"name":"Status","type":"string","format":"","description":"The aggregate status of the containers in this pod.","priority":0},{"name":"Restarts","type":"string","format":"","description":"The number of times the containers in this pod have been restarted and when the last container in this pod has restarted.","priority":0},{"name":"Age","type":"stri [truncated 3785 chars]
+NAME    READY   STATUS    RESTARTS      AGE
+nginx   1/1     Running   2 (50m ago)   54m
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl get po nginx --v=9
+I0319 07:11:59.736689   13840 loader.go:374] Config loaded from file:  C:\Users\User\.kube\config
+I0319 07:11:59.747207   13840 round_trippers.go:466] curl -v -XGET  -H "Accept: application/json;as=Table;v=v1;g=meta.k8s.io,application/json;as=Table;v=v1beta1;g=meta.k8s.io,application/json" -H "User-Agent: kubectl.exe/v1.25.4 (windows/amd64) kubernetes/872a965" 'https://kubernetes.docker.internal:6443/api/v1/namespaces/default/pods/nginx'
+I0319 07:11:59.752206   13840 round_trippers.go:495] HTTP Trace: DNS Lookup for kubernetes.docker.internal resolved to [{127.0.0.1 }]
+I0319 07:11:59.753208   13840 round_trippers.go:510] HTTP Trace: Dial to tcp:127.0.0.1:6443 succeed
+I0319 07:11:59.767208   13840 round_trippers.go:553] GET https://kubernetes.docker.internal:6443/api/v1/namespaces/default/pods/nginx 200 OK in 18 milliseconds
+I0319 07:11:59.767208   13840 round_trippers.go:570] HTTP Statistics: DNSLookup 3 ms Dial 1 ms TLSHandshake 7 ms ServerProcessing 6 ms Duration 18 ms
+I0319 07:11:59.767208   13840 round_trippers.go:577] Response Headers:
+I0319 07:11:59.767208   13840 round_trippers.go:580]     Audit-Id: 13a6131a-193d-4ffe-a8de-3065c8187db5
+I0319 07:11:59.767208   13840 round_trippers.go:580]     Cache-Control: no-cache, private
+I0319 07:11:59.768207   13840 round_trippers.go:580]     Content-Type: application/json
+I0319 07:11:59.768207   13840 round_trippers.go:580]     X-Kubernetes-Pf-Flowschema-Uid: 63227214-a15a-482b-a0e2-7ed1a48af44f
+I0319 07:11:59.768207   13840 round_trippers.go:580]     X-Kubernetes-Pf-Prioritylevel-Uid: 404f2442-24cf-4890-8f0f-cfd6d6d14e3b
+I0319 07:11:59.768207   13840 round_trippers.go:580]     Date: Sun, 19 Mar 2023 01:41:59 GMT
+I0319 07:11:59.768207   13840 request.go:1154] Response Body: {"kind":"Table","apiVersion":"meta.k8s.io/v1","metadata":{"resourceVersion":"2901"},"columnDefinitions":[{"name":"Name","type":"string","format":"name","description":"Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names","priority":0},{"name":"Ready","type":"string","format":"","description":"The aggregate readiness state of this pod for accepting traffic.","priority":0},{"name":"Status","type":"string","format":"","description":"The aggregate status of the containers in this pod.","priority":0},{"name":"Restarts","type":"string","format":"","description":"The number of times the containers in this pod have been restarted and when the last container in this pod has restarted.","priority":0},{"name":"Age","type":"string","format":"","description":"CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.\n\nPopulated by the system. Read-only. Null for lists. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata","priority":0},{"name":"IP","type":"string","format":"","description":"IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.","priority":1},{"name":"Node","type":"string","format":"","description":"NodeName is a request to schedule this pod onto a specific node. If it is non-empty, the scheduler simply schedules this pod onto that node, assuming that it fits resource requirements.","priority":1},{"name":"Nominated Node","type":"string","format":"","description":"nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.","priority":1},{"name":"Readiness Gates","type":"string","format":"","description":"If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to \"True\" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates","priority":1}],"rows":[{"cells":["nginx","1/1","Running","2 (50m ago)","54m","10.1.0.8","docker-desktop","\u003cnone\u003e","\u003cnone\u003e"],"object":{"kind":"PartialObjectMetadata","apiVersion":"meta.k8s.io/v1","metadata":{"name":"nginx","namespace":"default","uid":"81774521-fefc-43d8-95fa-15e0bdf26e8c","resourceVersion":"2901","creationTimestamp":"2023-03-19T00:47:10Z","labels":{"run":"nginx"},"managedFields":[{"manager":"kubectl-run","operation":"Update","apiVersion":"v1","time":"2023-03-19T00:47:10Z","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:labels":{".":{},"f:run":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"nginx\"}":{".":{},"f:imagePullPolicy":{},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":80,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:protocol":{}}},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:enableServiceLinks":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{}}}},{"manager":"kubectl-set","operation":"Update","apiVersion":"v1","time":"2023-03-19T00:51:12Z","fieldsType":"FieldsV1","fieldsV1":{"f:spec":{"f:containers":{"k:{\"name\":\"nginx\"}":{"f:image":{}}}}}},{"manager":"kubelet","operation":"Update","apiVersion":"v1","time":"2023-03-19T00:51:35Z","fieldsType":"FieldsV1","fieldsV1":{"f:status":{"f:conditions":{"k:{\"type\":\"ContainersReady\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Initialized\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Ready\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}}},"f:containerStatuses":{},"f:hostIP":{},"f:phase":{},"f:podIP":{},"f:podIPs":{".":{},"k:{\"ip\":\"10.1.0.8\"}":{".":{},"f:ip":{}}},"f:startTime":{}}},"subresource":"status"}]}}}]}
+NAME    READY   STATUS    RESTARTS      AGE
+nginx   1/1     Running   2 (50m ago)   54m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
