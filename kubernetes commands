@@ -1158,10 +1158,27 @@ nginx-2     map[running:map[startedAt:2023-03-19T01:41:20Z]]
 
 
 PS C:\Users\User> kubectl create -f multi-container2.yaml
-pod/busybox created
-PS C:\Users\User> kubectl get po busybox
-NAME      READY   STATUS   RESTARTS   AGE
-busybox   2/3     Error    0          13s
+pod/busybox1 created
+PS C:\Users\User>
+PS C:\Users\User>
+PS C:\Users\User>
+PS C:\Users\User>
+PS C:\Users\User> kubectl get po
+NAME        READY   STATUS        RESTARTS      AGE
+busybox     1/2     Terminating   0             4m20s
+busybox-1   1/1     Running       0             49m
+busybox1    3/3     Running       0             17s
+nginx       1/1     Running       2 (90m ago)   94m
+nginx-1     1/1     Running       0             78m
+nginx-2     1/1     Running       0             40m
+PS C:\Users\User>
+PS C:\Users\User> kubectl get po
+NAME        READY   STATUS    RESTARTS      AGE
+busybox-1   1/1     Running   0             49m
+busybox1    3/3     Running   0             29s
+nginx       1/1     Running   2 (91m ago)   95m
+nginx-1     1/1     Running   0             79m
+nginx-2     1/1     Running   0             41m
 
 
 
