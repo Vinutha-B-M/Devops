@@ -614,3 +614,66 @@ How are you
 PS C:\WINDOWS\system32>
 PS C:\WINDOWS\system32>
 PS C:\WINDOWS\system32>
+
+
+
+
+
+
+
+
+
+
+
+
+
+========================================================================================================================================================================
+PS C:\Windows\system32> kubectl version
+WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.  Use --output=yaml|json to get the full version.
+Client Version: version.Info{Major:"1", Minor:"25", GitVersion:"v1.25.4", GitCommit:"872a965c6c6526caa949f0c6ac028ef7aff3fb78", GitTreeState:"clean", BuildDate:"2022-11-09T13:36:36Z", GoVersion:"go1.19.3", Compiler:"gc", Platform:"windows/amd64"}
+Kustomize Version: v4.5.7
+Server Version: version.Info{Major:"1", Minor:"25", GitVersion:"v1.25.4", GitCommit:"872a965c6c6526caa949f0c6ac028ef7aff3fb78", GitTreeState:"clean", BuildDate:"2022-11-09T13:29:58Z", GoVersion:"go1.19.3", Compiler:"gc", Platform:"linux/amd64"}
+PS C:\Windows\system32> kubectl get namespaces
+NAME              STATUS   AGE
+default           Active   3m10s
+kube-node-lease   Active   3m12s
+kube-public       Active   3m12s
+kube-system       Active   3m12s
+PS C:\Windows\system32> kubectl get po --all-namespaces
+NAMESPACE     NAME                                     READY   STATUS    RESTARTS   AGE
+kube-system   coredns-565d847f94-qnlrc                 1/1     Running   0          3m21s
+kube-system   coredns-565d847f94-tjhm7                 1/1     Running   0          3m21s
+kube-system   etcd-docker-desktop                      1/1     Running   0          3m24s
+kube-system   kube-apiserver-docker-desktop            1/1     Running   0          3m26s
+kube-system   kube-controller-manager-docker-desktop   1/1     Running   0          3m24s
+kube-system   kube-proxy-znnkk                         1/1     Running   0          3m21s
+kube-system   kube-scheduler-docker-desktop            1/1     Running   0          3m19s
+kube-system   storage-provisioner                      1/1     Running   0          3m14s
+kube-system   vpnkit-controller                        1/1     Running   0          3m13s
+PS C:\Windows\system32> kubectl get po -n kube-system
+NAME                                     READY   STATUS    RESTARTS   AGE
+coredns-565d847f94-qnlrc                 1/1     Running   0          4m35s
+coredns-565d847f94-tjhm7                 1/1     Running   0          4m35s
+etcd-docker-desktop                      1/1     Running   0          4m38s
+kube-apiserver-docker-desktop            1/1     Running   0          4m40s
+kube-controller-manager-docker-desktop   1/1     Running   0          4m38s
+kube-proxy-znnkk                         1/1     Running   0          4m35s
+kube-scheduler-docker-desktop            1/1     Running   0          4m33s
+storage-provisioner                      1/1     Running   0          4m28s
+vpnkit-controller                        1/1     Running   0          4m27s
+PS C:\Windows\system32> kubectl get svc -n kube-system
+NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)                  AGE
+kube-dns   ClusterIP   10.96.0.10   <none>        53/UDP,53/TCP,9153/TCP   5m8s
+PS C:\Windows\system32> kubectl get pods -o=jsonpath="{.items[*]['metadata.name', 'metadata.namespace']}"
+PS C:\Windows\system32> kubectl run nginx --image=nginx --restart=Never
+pod/nginx created
+PS C:\Windows\system32> kubectl get po
+NAME    READY   STATUS              RESTARTS   AGE
+nginx   0/1     ContainerCreating   0          10s
+PS C:\Windows\system32> kubectl get pods -o=jsonpath="{.items[*]['metadata.name', 'metadata.namespace']}"
+nginx default
+PS C:\Windows\system32> kubectl run nginx-yaml --image=nginx --restart=Never --dry-run -o yaml > nginx-pod.yaml
+W0319 05:56:27.127999    2896 helpers.go:663] --dry-run is deprecated and can be replaced with --dry-run=client.
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl run nginx --image=nginx --restart=Never --dry-run=client -o yaml > nginx-pod.yaml
