@@ -1050,6 +1050,23 @@ index.html           100% |*****************************************************
 
 
 
+PS C:\Windows\system32> kubectl run busybox --image=nginx --restart=Never -it -- echo "How are you"
+How are you
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl delete po busybox
+pod "busybox" deleted
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl run busybox --image=nginx --restart=Never -it --rm -- echo "How are you"
+How are you
+pod "busybox" deleted
+
+
+
+
+
+
 
 
 
