@@ -797,3 +797,176 @@ See 'kubectl get --help' for usage.
 
 
 
+PS C:\Windows\system32> kubectl describe pod nginx
+Name:             nginx
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             docker-desktop/192.168.65.4
+Start Time:       Sun, 19 Mar 2023 06:03:20 +0530
+Labels:           run=nginx
+Annotations:      <none>
+Status:           Running
+IP:               10.1.0.7
+IPs:
+  IP:  10.1.0.7
+Containers:
+  nginx:
+    Container ID:   docker://824c39f3523f193b1a07e05b10c806b137184a92dcdfe7022c3b5ba04f269712
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:aa0afebbb3cfa473099a62c4b32e9b3fb73ed23f2a75a65ce1d4b4f55a5c2ef2
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 19 Mar 2023 06:03:24 +0530
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-rvgl6 (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  kube-api-access-rvgl6:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  11m   default-scheduler  Successfully assigned default/nginx to docker-desktop
+  Normal  Pulling    11m   kubelet            Pulling image "nginx"
+  Normal  Pulled     11m   kubelet            Successfully pulled image "nginx" in 2.8576236s
+  Normal  Created    11m   kubelet            Created container nginx
+  Normal  Started    11m   kubelet            Started container nginx
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl delete po nginx --grace-period=0 --force
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+pod "nginx" force deleted
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl run nginx --image=nginx:1.17.4 --restart=Never --port=80
+pod/nginx created
+PS C:\Windows\system32> kubectl set image pod/nginx nginx=nginx:1.15-alpine
+pod/nginx image updated
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl describe po nginx
+Name:             nginx
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             docker-desktop/192.168.65.4
+Start Time:       Sun, 19 Mar 2023 06:17:10 +0530
+Labels:           run=nginx
+Annotations:      <none>
+Status:           Running
+IP:               10.1.0.8
+IPs:
+  IP:  10.1.0.8
+Containers:
+  nginx:
+    Container ID:   docker://ce9e5fde1507042c1864558b9fc84c9cb238c95a25bb73cacc459fb41b6e920e
+    Image:          nginx:1.15-alpine
+    Image ID:       docker-pullable://nginx@sha256:57a226fb6ab6823027c0704a9346a890ffb0cacde06bc19bbc234c8720673555
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sun, 19 Mar 2023 06:17:45 +0530
+    Last State:     Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Sun, 19 Mar 2023 06:17:34 +0530
+      Finished:     Sun, 19 Mar 2023 06:17:35 +0530
+    Ready:          True
+    Restart Count:  1
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-sphl4 (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  kube-api-access-sphl4:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age               From               Message
+  ----    ------     ----              ----               -------
+  Normal  Scheduled  36s               default-scheduler  Successfully assigned default/nginx to docker-desktop
+  Normal  Pulling    35s               kubelet            Pulling image "nginx:1.17.4"
+  Normal  Pulled     13s               kubelet            Successfully pulled image "nginx:1.17.4" in 22.4394011s
+  Normal  Killing    11s               kubelet            Container nginx definition changed, will be restarted
+  Normal  Pulling    10s               kubelet            Pulling image "nginx:1.15-alpine"
+  Normal  Pulled     2s                kubelet            Successfully pulled image "nginx:1.15-alpine" in 8.4166606s
+  Normal  Created    1s (x2 over 12s)  kubelet            Created container nginx
+  Normal  Started    1s (x2 over 12s)  kubelet            Started container nginx
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl set image pod/nginx nginx=nginx:1.17.1
+pod/nginx image updated
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl get po nginx -w
+NAME    READY   STATUS    RESTARTS        AGE
+nginx   1/1     Running   1 (3m59s ago)   4m24s
+nginx   1/1     Running   2 (23s ago)     4m25s
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl get po nginx -o jsonpath='{.spec.containers[].image}{"\n"}'
+error: error parsing jsonpath {.spec.containers[].image}{\n}, unrecognized character in action: U+005C '\'
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> $ kubectl get pods -o jsonpath="{.spec.containers[].image}{\\n}"
+$ : The term '$' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:1
++ $ kubectl get pods -o jsonpath="{.spec.containers[].image}{\\n}"
++ ~
+    + CategoryInfo          : ObjectNotFound: ($:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS C:\Windows\system32> kubectl get pods -o jsonpath="{.spec.containers[].image}{\\n}"
+error: error parsing jsonpath {.spec.containers[].image}{\\n}, unrecognized character in action: U+005C '\'
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl get pods -o jsonpath="{.spec.containers[].image}"
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl get pods
+NAME    READY   STATUS    RESTARTS       AGE
+nginx   1/1     Running   2 (4m2s ago)   8m4s
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl get po nginx -o jsonpath='{.spec.containers[].image}'
+nginx:1.17.1
+
+
+
+
+
