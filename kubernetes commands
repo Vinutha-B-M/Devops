@@ -1032,6 +1032,26 @@ busybox-1   0/1     Completed   0          66s
 
 
 
+PS C:\Windows\system32> kubectl run busybox-1 --image=busybox --restart=Never -- /bin/sh -c "sleep 3600"
+pod/busybox-1 created
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl get po nginx -o wide
+NAME    READY   STATUS    RESTARTS      AGE   IP         NODE             NOMINATED NODE   READINESS GATES
+nginx   1/1     Running   2 (42m ago)   46m   10.1.0.8   docker-desktop   <none>           <none>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl exec -it busybox-1 -- wget -o- 10.1.0.8
+Connecting to 10.1.0.8 (10.1.0.8:80)
+saving to 'index.html'
+index.html           100% |*********************************************************************************************************************************************************************************************|   612  0:00:00 ETA
+'index.html' saved
+
+
+
+
+
 
 
 
