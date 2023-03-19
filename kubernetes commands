@@ -967,6 +967,64 @@ PS C:\Windows\system32> kubectl get po nginx -o jsonpath='{.spec.containers[].im
 nginx:1.17.1
 
 
+PS C:\Windows\system32> kubectl run nginx-1 --image=nginx --restart=Never
+pod/nginx-1 created
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl exec -it nginx /bin/sh
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+#
+#
+# ^C
+# ^C
+# exit
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl get po nginx -o wide
+NAME    READY   STATUS    RESTARTS      AGE   IP         NODE             NOMINATED NODE   READINESS GATES
+nginx   1/1     Running   2 (14m ago)   18m   10.1.0.8   docker-desktop   <none>           <none>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl run busybox --image=busybox --restart=Never -- ls
+pod/busybox created
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl logs busybox
+bin
+dev
+etc
+home
+lib
+lib64
+proc
+root
+sys
+tmp
+usr
+var
+
+
+
+PS C:\Windows\system32> kubectl logs busybox -p
+Error from server (BadRequest): previous terminated container "busybox" in pod "busybox" not found
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32>
+PS C:\Windows\system32> kubectl get pod busybox
+NAME      READY   STATUS      RESTARTS   AGE
+busybox   0/1     Completed   0          5m7s
+
+
+
+
+
+
+
+
+
+
+
 
 
 
